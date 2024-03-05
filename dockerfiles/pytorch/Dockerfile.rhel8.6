@@ -31,7 +31,7 @@ RUN dnf install -y \
     openblas-devel \
     numactl \
     gperftools-devel && \
-    dnf clean all && rm -rf /var/cache/yum
+    dnf clean all && rm -rf /var/cache/yum /var/cache/dnf
 
 COPY install_packages.sh .
 

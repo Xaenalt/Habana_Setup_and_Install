@@ -14,7 +14,7 @@ LABEL release="${VERSION}-${REVISION}"
 COPY LICENSE /licenses/
 
 RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
-    dnf clean all && rm -rf /var/cache/yum
+    dnf clean all && rm -rf /var/cache/yum /var/cache/dnf
 
 RUN echo "[appstream]" > /etc/yum.repos.d/CentOS-Linux-AppStream.repo && \
     echo "name=CentOS Linux 8 - AppStream" >> /etc/yum.repos.d/CentOS-Linux-AppStream.repo && \
@@ -55,7 +55,7 @@ RUN dnf install -y \
     # update pkgs (except OS version) for resolving potentials CVEs
     dnf versionlock add redhat-release* && \
     dnf update -y && \
-    dnf clean all && rm -rf /var/cache/yum
+    dnf clean all && rm -rf /var/cache/yum /var/cache/dnf
 
 COPY install_efa.sh .
 RUN ./install_efa.sh && rm install_efa.sh
@@ -83,7 +83,7 @@ RUN dnf install -y habanalabs-rdma-core-"$VERSION"-"$REVISION".el8 \
         habanalabs-firmware-tools-"$VERSION"-"$REVISION".el8 \
         habanalabs-graph-"$VERSION"-"$REVISION".el8 && \
     rm -f /etc/yum.repos.d/habanalabs.repo && rm -rf /tmp/* && \
-    dnf clean all && rm -rf /var/cache/yum
+    dnf clean all && rm -rf /var/cache/yum /var/cache/dnf
 
 RUN rpm -V habanalabs-rdma-core && rpm -V habanalabs-thunk && rpm -V habanalabs-firmware-tools && rpm -V habanalabs-graph
 
